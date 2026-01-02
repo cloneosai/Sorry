@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Gargi 🤍</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fde2ff, #fff6dc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 1s;
+  overflow-x: hidden;
+}
+
+body.night {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.container {
+  max-width: 900px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #444;
+  transition: color 1s;
+}
+
+body.night .container {
+  color: #eee;
+}
+
+/* SVG */
+.svg-wrap {
+  width: 180px;
+  margin: auto;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.sub {
+  margin-top: 10px;
+  opacity: 0.85;
+  font-size: 16px;
+}
+
+button {
+  margin: 18px 8px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 30px;
+  background: #ffb6c1;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+body.night button {
+  background: #8ec5fc;
+  color: #111;
+}
+
+/* LETTERS */
+.section {
+  margin-top: 70px;
+}
+
+.section h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.line {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 1s;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HEART */
+.heart {
+  font-size: 44px;
+  margin-top: 40px;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+/* CHOCOLATE */
+.choco {
+  position: fixed;
+  top: -40px;
+  font-size: 26px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* STARS */
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- SVG -->
+  <div class="svg-wrap">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="70" fill="#ffd6e8"/>
+      <circle cx="75" cy="90" r="6" fill="#555"/>
+      <circle cx="125" cy="90" r="6" fill="#555"/>
+      <path d="M70 115 Q100 130 130 115" stroke="#555" stroke-width="4" fill="none"/>
+      <text x="100" y="160" text-anchor="middle" font-size="18">zzz</text>
+    </svg>
+  </div>
+
+  <h1>Hey Gargi 🤍</h1>
+  <p class="sub">
+    Rest mode is on.  
+    You don’t need to be strong today.
+  </p>
+
+  <button onclick="sendHug()">Need a hug?</button>
+  <button onclick="toggleMusic()">🎵 Music</button>
+  <button onclick="goodnight()">🌙 Goodnight</button>
+
+  <!-- COMFORT LETTER -->
+  <div class="section">
+    <h2>Just a gentle reminder</h2>
+    <p class="line">I know today feels heavier than usual.</p>
+    <p class="line">You don’t need to push yourself.</p>
+    <p class="line">You don’t need to explain anything.</p>
+    <p class="line">It’s okay to rest.</p>
+    <p class="line">It’s okay to do absolutely nothing.</p>
+  </div>
+
+  <!-- SORRY LETTER -->
+  <div class="section">
+    <h2>I owe you an apology 🤍</h2>
+    <p class="line">I’m really sorry for taking your pain for granted.</p>
+    <p class="line">I should have understood better and been more gentle.</p>
+    <p class="line">Your discomfort matters. Your feelings matter.</p>
+    <p class="line">I’m learning, and I promise to do better.</p>
+    <p class="line"><strong>You deserve care, patience, and kindness.</strong></p>
+  </div>
+
+  <button onclick="chocolateRain()">Emergency Chocolate 🍫</button>
+
+  <div class="heart">🤍</div>
+
+  <footer>
+    Made with care — just for Gargi 🌸
+  </footer>
+</div>
+
+<audio id="bgm" loop>
+  <source src="soft-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const lines = document.querySelectorAll('.line');
+function reveal() {
+  lines.forEach(line => {
+    if (line.getBoundingClientRect().top < window.innerHeight - 50) {
+      line.classList.add('show');
+    }
+  });
+}
+window.addEventListener('scroll', reveal);
+reveal();
+
+function sendHug() {
+  alert("A soft, warm hug just for you, Gargi 🤍");
+}
+
+function chocolateRain() {
+  for (let i = 0; i < 22; i++) {
+    const c = document.createElement('div');
+    c.className = 'choco';
+    c.innerText = '🍫';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.animationDuration = 2 + Math.random() * 2 + 's';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+const music = document.getElementById("bgm");
+let playing = false;
+function toggleMusic() {
+  if (!playing) {
+    music.play();
+    playing = true;
+  } else {
+    music.pause();
+    playing = false;
+  }
+}
+
+function goodnight() {
+  document.body.classList.toggle('night');
+  createStars();
+}
+
+function createStars() {
+  document.querySelectorAll('.star').forEach(s => s.remove());
+  if (!document.body.classList.contains('night')) return;
+  for (let i = 0; i < 60; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.top = Math.random() * 100 + 'vh';
+    document.body.appendChild(star);
+  }
+}
+</script>
+
+</body>
+  </html>
