@@ -63,7 +63,7 @@ h1 {
 }
 
 button {
-  margin: 18px 8px;
+  margin: 14px 6px;
   padding: 12px 26px;
   border: none;
   border-radius: 30px;
@@ -84,7 +84,7 @@ body.night button {
   color: #111;
 }
 
-/* LETTERS */
+/* SECTIONS */
 .section {
   margin-top: 70px;
 }
@@ -94,17 +94,76 @@ body.night button {
   margin-bottom: 20px;
 }
 
+/* LETTER */
 .line {
   opacity: 0;
   transform: translateY(20px);
   transition: 1s;
-  margin: 20px 0;
+  margin: 18px 0;
   font-size: 18px;
 }
 
 .line.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* SPOTIFY STYLE PLAYER */
+.player {
+  margin: 40px auto;
+  max-width: 360px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  text-align: left;
+}
+
+body.night .player {
+  background: rgba(0,0,0,0.4);
+}
+
+.track-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.track-artist {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.play-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ff7aa2;
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #ff7aa2;
 }
 
 /* HEART */
@@ -168,33 +227,43 @@ footer {
   </div>
 
   <h1>Hey Gargi 🤍</h1>
-  <p class="sub">
-    Rest mode is on.  
-    You don’t need to be strong today.
-  </p>
+  <p class="sub">Rest mode is on. You don’t need to be strong today.</p>
 
   <button onclick="sendHug()">Need a hug?</button>
-  <button onclick="toggleMusic()">🎵 Music</button>
   <button onclick="goodnight()">🌙 Goodnight</button>
 
-  <!-- COMFORT LETTER -->
+  <!-- MUSIC PLAYER -->
   <div class="section">
-    <h2>Just a gentle reminder</h2>
-    <p class="line">I know today feels heavier than usual.</p>
-    <p class="line">You don’t need to push yourself.</p>
-    <p class="line">You don’t need to explain anything.</p>
-    <p class="line">It’s okay to rest.</p>
-    <p class="line">It’s okay to do absolutely nothing.</p>
+    <h2>Soft music for you 🎧</h2>
+
+    <div class="player">
+      <div class="track-title">Soft Comfort</div>
+      <div class="track-artist">For Gargi 🤍</div>
+
+      <div class="controls">
+        <button class="play-btn" onclick="toggleMusic()">▶</button>
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- SORRY LETTER -->
+  <!-- COMFORT -->
   <div class="section">
-    <h2>I owe you an apology 🤍</h2>
-    <p class="line">I’m really sorry for taking your pain for granted.</p>
-    <p class="line">I should have understood better and been more gentle.</p>
-    <p class="line">Your discomfort matters. Your feelings matter.</p>
-    <p class="line">I’m learning, and I promise to do better.</p>
-    <p class="line"><strong>You deserve care, patience, and kindness.</strong></p>
+    <h2>Just a gentle reminder</h2>
+    <p class="line">You don’t need to push yourself.</p>
+    <p class="line">Your comfort matters.</p>
+    <p class="line">It’s okay to rest.</p>
+  </div>
+
+  <!-- SORRY -->
+  <div class="section">
+    <h2>I’m really sorry 🤍</h2>
+    <p class="line">I took your pain for granted, and that wasn’t fair.</p>
+    <p class="line">I should have been more understanding.</p>
+    <p class="line">Your pain matters. You matter.</p>
+    <p class="line"><strong>I promise to be more gentle and present.</strong></p>
   </div>
 
   <button onclick="chocolateRain()">Emergency Chocolate 🍫</button>
@@ -204,30 +273,34 @@ footer {
   <footer>
     Made with care — just for Gargi 🌸
   </footer>
+
 </div>
 
-<audio id="bgm" loop>
+<audio id="bgm">
   <source src="soft-music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* REVEAL */
 const lines = document.querySelectorAll('.line');
 function reveal() {
-  lines.forEach(line => {
-    if (line.getBoundingClientRect().top < window.innerHeight - 50) {
-      line.classList.add('show');
+  lines.forEach(l => {
+    if (l.getBoundingClientRect().top < window.innerHeight - 40) {
+      l.classList.add('show');
     }
   });
 }
 window.addEventListener('scroll', reveal);
 reveal();
 
+/* HUG */
 function sendHug() {
   alert("A soft, warm hug just for you, Gargi 🤍");
 }
 
+/* CHOCOLATE */
 function chocolateRain() {
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < 20; i++) {
     const c = document.createElement('div');
     c.className = 'choco';
     c.innerText = '🍫';
@@ -238,18 +311,30 @@ function chocolateRain() {
   }
 }
 
+/* MUSIC */
 const music = document.getElementById("bgm");
+const bar = document.getElementById("progressBar");
+const btn = document.querySelector(".play-btn");
 let playing = false;
+
 function toggleMusic() {
   if (!playing) {
     music.play();
+    btn.innerText = "⏸";
     playing = true;
   } else {
     music.pause();
+    btn.innerText = "▶";
     playing = false;
   }
 }
 
+music.addEventListener("timeupdate", () => {
+  const percent = (music.currentTime / music.duration) * 100;
+  bar.style.width = percent + "%";
+});
+
+/* GOODNIGHT */
 function goodnight() {
   document.body.classList.toggle('night');
   createStars();
@@ -269,4 +354,4 @@ function createStars() {
 </script>
 
 </body>
-  </html>
+</html>
